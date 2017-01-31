@@ -1,74 +1,93 @@
 #Computer Science project
 #Graphing calc
-#Setting up PyGame
 import math
+#Setting up PyGame
 import pygame
+from pygame import*
+eq="3*x-8*y+8"
 pygame.init()
-#Jarvic Init
-#Screen Size
-w=600
-h=600
-e=600
-nopixel=25
 white=(255,255,255)
 black=(0,0,0)
-green=(0,0,0)
-display=None
+green=(0,0,255)
+back=(0,255,0)
+nopixel=25
 normalfont=pygame.font.SysFont("Arial",16)
 titlefont=pygame.font.SysFont("Verdana",36)
-def jarvic(nopixel,eq):
-    global display
-    display=pygame.display.set_mode((w+e,h))
-    display=pygame.display.set_mode((w+e,h))
-    pygame.display.set_caption("Jarvic")
-    display.fill(white)
-    #screen initialization
-    def gridsquares(nopixel):#no. of pixels per grid
-        display.set_clip(0,0,w,h)
-        display.fill(white)
-        for i in range(w/nopixel):
-            xg=nopixel*i
-            yg=nopixel*i
-            pygame.draw.line(display,black,(xg,0),(xg,h),1)
-            pygame.draw.line(display,black,(0,yg),(w,yg),1)
-            #axes
-            mx,my=w/(2*nopixel)*nopixel,h/(2*nopixel)*nopixel
-            pygame.draw.line(display,black,(mx,0),(mx,h),3)
-            pygame.draw.line(display,black,(0,my),(w,my),3)
-            #boundary
-            pygame.draw.line(display,black,(w,0),(w,h),5)
-            display.set_clip(None)
-    def graphjarvic(nopixel,eq):
-        pygame.init()
-        for i in range(w):
-            for j in range(h):
-                try:
-                    x=w/(w-i)/float(nopixel)
-                    y=h/(h-i)/float(nopixel)
-                    nx=(x-(w/(w-(i+1))/float(nopixel)))
-                    ny=(y-(w/(w-(i+1))/float(nopixel)))
-                    p1=(w/(2+x*nopixel),h/(2+y*nopixel))
-                    p2=(w/(2+nx*nopixel),h/(2+y*nopixel))
+
+#screensize
+w=500
+h=500
+e=600
+
+#display setup
+display=pygame.display.set_mode((w,h))
+pygame.display.set_caption("Jarvic")
+display.fill(white)
+pygame.display.update()
+
                 
-                    if eval(eq)==0:
-                        pygame.draw.line(display,black,p1,p2,2)
-                except:
-                     pass
-    nopixel=25
-    #main logic function
-    def mainfunctiondef():
-        gridsquares(nopixel)
-        #accepting equation
-        token=True
-        while token:
-            pygame.display.update()
-            #harvesting actions for execution
-            for event in pygame.event.get():
-                if event.type==pygame.QUIT:
-                    token=False
-        pygame.quit()
-    mainfunctiondef()
-    graphjarvic(nopixel,eq)
+
+
+
+#screen initialization
+def gridsquares(nopixel):#no. of pixels per grid
+    display.set_clip(0,0,w,h)
+    display.fill(white)
+    for i in range(w/nopixel):
+        xg=nopixel*i
+        yg=nopixel*i
+        pygame.draw.line(display,green,(xg,0),(xg,h),1)
+        pygame.draw.line(display,green,(0,yg),(w,yg),1)
+        
+
+        #axes
+        mx,my=w/(2*nopixel)*nopixel,h/(2*nopixel)*nopixel
+        pygame.draw.line(display,black,(mx,0),(mx,h),3)
+        pygame.draw.line(display,black,(0,my),(w,my),3)
+
+        #boundary
+        pygame.draw.line(display,black,(w,0),(w,h),5)
+        display.set_clip(None)
+        pygame.display.update()
+def graphjarvic(nopixel,eq1,eq2):
+    for i in range(w):
+        for j in range(h):
+            x = (w/2-i)/float(nopixel)
+            y = (h/2-j)/float(nopixel)
+            pos1 = (w/2+x*nopixel, h/2-y*nopixel)
+
+            nx = x = (w/2-(i+1))/float(nopixel)
+            ny = y = (h/2-(j+1))/float(nopixel)
+            pos2 = (w/2+nx*nopixel, h/2-ny*nopixel)
+            if eval(eq1)==0:
+                pygame.draw.line(display, (0,255,255), pos1, pos2, 1)
+                pygame.display.update()
+            else:
+                pass
+    for i in range(w):
+        for j in range(h):
+            x = (w/2-i)/float(nopixel)
+            y = (h/2-j)/float(nopixel)
+            pos1 = (w/2+x*nopixel, h/2-y*nopixel)
+
+            nx = x = (w/2-(i+1))/float(nopixel)
+            ny = y = (h/2-(j+1))/float(nopixel)
+            pos2 = (w/2+nx*nopixel, h/2-ny*nopixel)
+            if eval(eq2)==0:
+                pygame.draw.line(display, (0,255,255), pos1, pos2, 1)
+                pygame.display.update()
+            else:
+                pass
+        
+            
+            
+            
+                
+            
+    
+gridsquares(nopixel)
+graphjarvic(nopixel,"y-x","x**2+y**2-9")
+
     
     
 #sl     
